@@ -1,5 +1,135 @@
 export default function MartinezGraphicsApp() { const installApp = () => { alert('To install Martinez Graphics as an app, open this website in Chrome and tap "Add to Home Screen".'); }; const services = [ { title: 'Sales Flyer', price: '₦1,500', desc: 'Clean promo flyers for businesses and vendors.' }, { title: 'Premium Flyer', price: '₦3,000', desc: 'Modern premium designs for social media promotions.' }, { title: 'Logo Design', price: '₦7,000', desc: 'Professional logo branding for small businesses.' } ];
+export default function MartinezGraphicsApp() { const installApp = () => { alert('To install Martinez Graphics as an app, open this website in Chrome and tap "Add to Home Screen".'); }; const services = [ { title: 'Sales Flyer', price: '₦1,500', desc: 'Clean promo flyers for businesses and vendors.' }, { title: 'Premium Flyer', price: '₦3,000', desc: 'Modern premium designs for social media promotions.' }, { title: 'Logo Design', price: '₦7,000', desc: 'Professional logo branding for small businesses.' } ];
 
+return ( <div className="min-h-screen bg-black text-white font-sans"> {/* Hero Section */} <section className="px-6 py-12 text-center bg-gradient-to-b from-black to-zinc-900"> <div className="max-w-4xl mx-auto"> <h1 className="text-5xl font-bold mb-4 text-yellow-400"> Martinez Graphics </h1>
+
+<p className="text-xl text-zinc-300 mb-8">
+        Professional Designs For Small Businesses
+      </p>
+
+      <div className="flex flex-col md:flex-row gap-4 justify-center">
+        <button className="bg-yellow-400 text-black px-8 py-4 rounded-2xl font-bold text-lg shadow-lg hover:scale-105 transition">
+          Order Now
+        </button>
+
+        <button
+          onClick={installApp}
+          className="bg-zinc-800 border border-yellow-400 text-yellow-400 px-8 py-4 rounded-2xl font-bold text-lg hover:scale-105 transition"
+        >
+          Download App
+        </button>
+      </div>
+    </div>
+  </section>
+
+  {/* Services */}
+  <section className="px-6 py-12 max-w-6xl mx-auto">
+    <h2 className="text-3xl font-bold mb-10 text-center text-yellow-400">
+      Our Services
+    </h2>
+
+    <div className="grid md:grid-cols-3 gap-6">
+      {services.map((service, index) => (
+        <div
+          key={index}
+          className="bg-zinc-900 p-6 rounded-3xl border border-zinc-700 shadow-xl"
+        >
+          <h3 className="text-2xl font-bold mb-3">
+            {service.title}
+          </h3>
+
+          <p className="text-yellow-400 text-xl font-semibold mb-4">
+            {service.price}
+          </p>
+
+          <p className="text-zinc-300">
+            {service.desc}
+          </p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {/* Portfolio */}
+  <section className="px-6 py-12 bg-zinc-950">
+    <div className="max-w-6xl mx-auto">
+      <h2 className="text-3xl font-bold mb-10 text-center text-yellow-400">
+        Portfolio Samples
+      </h2>
+
+      <div className="grid md:grid-cols-3 gap-6">
+        {[1, 2, 3].map((item) => (
+          <div
+            key={item}
+            className="h-72 bg-zinc-800 rounded-3xl flex items-center justify-center text-zinc-400 border border-zinc-700"
+          >
+            Your Design Sample
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* Order Form */}
+  <section className="px-6 py-12 max-w-3xl mx-auto">
+    <h2 className="text-3xl font-bold mb-8 text-center text-yellow-400">
+      Place Your Order
+    </h2>
+
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+
+        const form = e.target;
+        const name = form[0].value;
+        const business = form[1].value;
+        const phone = form[2].value;
+        const service = form[3].value;
+        const message = form[4].value;
+
+        // WHATSAPP NUMBER (replace with your real number)
+        const whatsappNumber = "2348012345678";
+
+        // SIMPLE PRICING
+        let amount = 1500;
+        if (service === "Premium Flyer") amount = 3000;
+        if (service === "Logo Design") amount = 7000;
+
+        // PAYSTACK PAYMENT LINK (YOU MUST REPLACE THIS WITH YOUR REAL PAYSTACK PAYMENT LINK)
+        // Create a Paystack Payment Page and paste the link here
+        const paystackLink = "https://paystack.com/pay/YOUR_PAYMENT_LINK_HERE";
+
+        // Step 1: Open Paystack payment first
+        const payUrl = `${paystackLink}`;
+
+        // Save order details temporarily in URL (simple MVP approach)
+        const orderDetails = `name=${encodeURIComponent(name)}&business=${encodeURIComponent(business)}&phone=${encodeURIComponent(phone)}&service=${encodeURIComponent(service)}&message=${encodeURIComponent(message)}`;
+
+        localStorage.setItem("martinez_order", orderDetails);
+
+        window.open(payUrl, "_blank");
+
+        // Step 2: After payment, user will manually click WhatsApp button (simple MVP)
+        const whatsappText = `Hello Martinez Graphics,%0A%0APayment completed for:%0AName: ${name}%0ABusiness: ${business}%0AService: ${service}%0APhone: ${phone}%0ADetails: ${message}`;
+
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappText}`;
+
+        setTimeout(() => {
+          window.open(whatsappUrl, "_blank");
+        }, 8000);
+      }}
+      className="space-y-6 bg-zinc-900 p-8 rounded-3xl border border-zinc-700 shadow-xl"
+    >
+  </section>
+
+  {/* Footer */}
+  <footer className="text-center py-8 border-t border-zinc-800 text-zinc-400">
+    <p>Martinez Graphics © 2026</p>
+    <p className="mt-2">Fast • Professional • Affordable</p>
+  </footer>
+</div>
+
+); }
 return ( <div className="min-h-screen bg-black text-white font-sans"> {/* Hero Section */} <section className="px-6 py-12 text-center bg-gradient-to-b from-black to-zinc-900"> <div className="max-w-4xl mx-auto"> <h1 className="text-5xl font-bold mb-4 text-yellow-400"> Martinez Graphics </h1>
 
 <p className="text-xl text-zinc-300 mb-8">
